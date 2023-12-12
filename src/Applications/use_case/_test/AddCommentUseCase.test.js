@@ -16,8 +16,8 @@ describe('addComment', () => {
     };
 
     const useCaseOwner = {
-      owner: 'user-12345'
-    }
+      owner: 'user-12345',
+    };
 
     const expectedAddedComment = new AddedComment({
       id: 'comment-123',

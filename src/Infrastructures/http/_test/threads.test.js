@@ -140,8 +140,8 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
       expect(responseJson.data).toBeDefined();
-      expect(responseJson.data.thread.comments[0].content).toEqual('**komentar telah dihapus**')
-      expect(responseJson.data.thread.comments[0].replies[0].content).toEqual('**balasan telah dihapus**')
+      expect(responseJson.data.thread.comments[0].content).toEqual('**komentar telah dihapus**');
+      expect(responseJson.data.thread.comments[0].replies[0].content).toEqual('**balasan telah dihapus**');
     });
 
     it('should get detailThread correctly', async () => {

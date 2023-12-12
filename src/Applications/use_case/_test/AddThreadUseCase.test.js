@@ -17,8 +17,8 @@ describe('AddThreadUseCase', () => {
     });
 
     const useCaseOwner = {
-      owner: 'user-123'
-    }
+      owner: 'user-123',
+    };
 
     const mockThreadRepository = new ThreadRepository();
 

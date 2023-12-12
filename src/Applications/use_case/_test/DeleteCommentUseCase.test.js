@@ -10,8 +10,8 @@ describe('DeleteCommentUseCase', () => {
     };
 
     const useCaseOwner = {
-      owner: 'user-123'
-    }
+      owner: 'user-123',
+    };
 
     const mockCommentRepository = new CommentRepository();
 

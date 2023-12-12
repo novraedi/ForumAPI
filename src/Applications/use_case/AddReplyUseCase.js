@@ -8,7 +8,7 @@ class AddReplyUseCase {
 
   async execute(useCasePayload, useCaseParam, owner) {
     await this._commentRepository.checkCommentIsExist(useCaseParam);
-    return await this._replyRepository.addReply(
+    return this._replyRepository.addReply(
       new NewReply({ ...useCasePayload, commentId: useCaseParam.commentId, owner }),
     );
   }

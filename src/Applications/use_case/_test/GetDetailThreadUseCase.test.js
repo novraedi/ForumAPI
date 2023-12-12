@@ -1,6 +1,7 @@
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const RepliesRepository = require('../../../Domains/replies/RepliesRepository');
+const LikeRepository = require('../../../Domains/likes/LikeRepository');
 const GetDetailThread = require('../GetDetailThreadUseCase');
 
 describe('GetDetailThread', () => {
@@ -11,6 +12,7 @@ describe('GetDetailThread', () => {
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
     const mockRepliesRepository = new RepliesRepository();
+    const mockLikeRepository = new LikeRepository();
 
     const expectedRetrievedThread = {
       id: 'thread-123',
@@ -23,6 +25,7 @@ describe('GetDetailThread', () => {
           id: 'comment-123',
           username: 'anos',
           date: '2023',
+          likeCount: 1,
           replies: [
             {
               id: 'reply-123',
@@ -62,12 +65,18 @@ describe('GetDetailThread', () => {
         username: 'test123',
         is_deleted: false,
       }]));
+    mockLikeRepository.getCommentLikesCountByThreadId = jest.fn()
+      .mockImplementation(() => Promise.resolve([{
+        comment_id: 'comment-123',
+        likes: 1,
+      }]));
 
     // creating use case
     const getDetailThread = new GetDetailThread({
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
       repliesRepository: mockRepliesRepository,
+      likeRepository: mockLikeRepository,
     });
 
     // Action
@@ -78,6 +87,7 @@ describe('GetDetailThread', () => {
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCaseParam);
     expect(mockCommentRepository.getAllCommentByThreadId).toBeCalledWith(useCaseParam);
     expect(mockRepliesRepository.getRepliesByThreadId).toBeCalledWith(useCaseParam);
+    expect(mockLikeRepository.getCommentLikesCountByThreadId).toBeCalledWith(useCaseParam);
   });
 
   it('should change the content comment and reply when is_deleted true', async () => {
@@ -87,6 +97,7 @@ describe('GetDetailThread', () => {
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
     const mockRepliesRepository = new RepliesRepository();
+    const mockLikeRepository = new LikeRepository();
 
     const expectedRetrievedThread = {
       id: 'thread-123',
@@ -99,6 +110,7 @@ describe('GetDetailThread', () => {
           id: 'comment-123',
           username: 'anos',
           date: '2023',
+          likeCount: 0,
           replies: [
             {
               id: 'reply-123',
@@ -138,11 +150,17 @@ describe('GetDetailThread', () => {
         username: 'test123',
         is_deleted: true,
       }]));
+    mockLikeRepository.getCommentLikesCountByThreadId = jest.fn()
+      .mockImplementation(() => Promise.resolve([{
+        comment_id: 'comment-123',
+        likes: 0,
+      }]));
 
     const getDetailThread = new GetDetailThread({
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
       repliesRepository: mockRepliesRepository,
+      likeRepository: mockLikeRepository,
     });
 
     // Action
@@ -153,6 +171,7 @@ describe('GetDetailThread', () => {
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCaseParam);
     expect(mockCommentRepository.getAllCommentByThreadId).toBeCalledWith(useCaseParam);
     expect(mockRepliesRepository.getRepliesByThreadId).toBeCalledWith(useCaseParam);
+    expect(mockLikeRepository.getCommentLikesCountByThreadId).toBeCalledWith(useCaseParam);
   });
 
   it('should push only matched reply comment_id', async () => {
@@ -162,6 +181,7 @@ describe('GetDetailThread', () => {
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
     const mockRepliesRepository = new RepliesRepository();
+    const mockLikeRepository = new LikeRepository();
 
     const expectedRetrievedThread = {
       id: 'thread-123',
@@ -174,6 +194,7 @@ describe('GetDetailThread', () => {
           id: 'comment-123',
           username: 'anos',
           date: '2023',
+          likeCount: 777,
           replies: [
             {
               id: 'reply-777',
@@ -222,11 +243,17 @@ describe('GetDetailThread', () => {
         is_deleted: true,
       },
       ]));
+    mockLikeRepository.getCommentLikesCountByThreadId = jest.fn()
+      .mockImplementation(() => Promise.resolve([{
+        comment_id: 'comment-123',
+        likes: 777,
+      }]));
 
     const getDetailThread = new GetDetailThread({
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
       repliesRepository: mockRepliesRepository,
+      likeRepository: mockLikeRepository,
     });
 
     // Action
@@ -237,5 +264,6 @@ describe('GetDetailThread', () => {
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCaseParam);
     expect(mockCommentRepository.getAllCommentByThreadId).toBeCalledWith(useCaseParam);
     expect(mockRepliesRepository.getRepliesByThreadId).toBeCalledWith(useCaseParam);
+    expect(mockLikeRepository.getCommentLikesCountByThreadId).toBeCalledWith(useCaseParam);
   });
 });

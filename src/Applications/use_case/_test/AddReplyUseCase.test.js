@@ -15,8 +15,8 @@ describe('AddRepliesUseCase', () => {
     };
 
     const useCaseOwner = {
-      owner: 'user-123'
-    }
+      owner: 'user-123',
+    };
     const expectedAddedReply = new AddedReply({
       id: 'reply-123',
       content: 'mantap',
@@ -54,6 +54,6 @@ describe('AddRepliesUseCase', () => {
       owner: expectedAddedReply.owner,
       commentId: useCaseParam.commentId,
     }));
-    expect(addedReply).toStrictEqual(expectedAddedReply)
+    expect(addedReply).toStrictEqual(expectedAddedReply);
   });
 });
