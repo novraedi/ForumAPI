@@ -10,8 +10,8 @@ describe('DeleteReply', () => {
     };
 
     const useCaseOwner = {
-      owner: 'user-123'
-    }
+      owner: 'user-123',
+    };
 
     const mockReplyRepository = new ReplyRepository();
 
@@ -30,7 +30,8 @@ describe('DeleteReply', () => {
 
     // Assert
     expect(mockReplyRepository.checkReplyIsExist).toBeCalledWith(useCaseParam);
-    expect(mockReplyRepository.verifyReplyAccess).toBeCalledWith({ replyId: useCaseParam.replyId, owner: useCaseOwner.owner });
+    expect(mockReplyRepository.verifyReplyAccess)
+      .toBeCalledWith({ replyId: useCaseParam.replyId, owner: useCaseOwner.owner });
     expect(mockReplyRepository.deleteReplyById).toBeCalledWith(useCaseParam.replyId);
   });
 });

@@ -1,5 +1,4 @@
 const AuthenticationTokenManager = require('../../Applications/security/AuthenticationTokenManager');
-const AuthenticationError = require('../../Commons/exceptions/AuthenticationError');
 const InvariantError = require('../../Commons/exceptions/InvariantError');
 
 class JwtTokenManager extends AuthenticationTokenManager {

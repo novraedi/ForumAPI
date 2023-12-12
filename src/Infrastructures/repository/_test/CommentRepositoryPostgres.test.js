@@ -144,7 +144,7 @@ describe('CommentsRepositoryPostgres', () => {
     it('should throw error when comment does not exist', async () => {
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {}, {});
 
-      await expect(commentRepositoryPostgres.deleteCommentById('comment-123')).rejects.toThrowError('comment tidak ada')
+      await expect(commentRepositoryPostgres.deleteCommentById('comment-123')).rejects.toThrowError('comment tidak ada');
     });
   });
 });
